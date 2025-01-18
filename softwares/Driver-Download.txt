@@ -1,2 +1,3 @@
-Open source library for Linux users to interact with STM32: https://github.com/stlink-org/stlink
-Official STM Driver Download link: https://www.st.com/en/development-tools/stsw-link009.html
+1. Official STM Driver Download windows link: https://www.st.com/en/development-tools/stsw-link009.html
+2. Open source library for Linux users to interact with STM32: https://github.com/stlink-org/stlink
+3. Video link to step-by-step Guide: https://www.youtube.com/watch?v=5nr_3o7D1To&t=2s
