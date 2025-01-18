@@ -25,7 +25,7 @@ Implement a basic embedded system by blinking an LED using STM32 Nucleo and Ardu
   ![preferences](https://engineerworkshop.com/content/images/2020/01/javaw_3252VVQ7TU.png)
 
 - Then make these configurations below shown:
-  ![Arduino-IDE-config-nucleo-64](softwares/Arduino-IDE-config-nucleo-64.png)
+  ![Arduino-IDE-config-nucleo-64](https://github.com/855princekumar/embed-sys-lab/blob/e0ad30883337065835d61a01800072dec2efedaa/softwares/Arduino-IDE-config-nucleo-64.png)
 
 - 🔄 Install necessary drivers for STM32 from ST's official website/ Attached in the software folder in stm32F103RB-nucleo-driver.
 
