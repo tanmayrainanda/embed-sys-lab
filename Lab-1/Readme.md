@@ -4,7 +4,9 @@
 ### 🎯 Objective
 Implement a basic embedded system by blinking an LED using STM32 Nucleo and Arduino IDE.
 
-![STM32F103RB](https://static.rapidonline.com/catalogueimages/product/75/07/s75-0774p02wc.jpg)
+![STM32F103RB](https://github.com/user-attachments/assets/944bf731-d8c1-4b39-b6d3-5a81c146b1a5)
+
+- 🎥 [About STM32 Nucleo - YouTube](https://www.youtube.com/watch?v=y3GCkILzIzg) 
 
 ## 🛠️ Required Components
 
