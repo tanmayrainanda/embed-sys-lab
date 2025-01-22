@@ -209,6 +209,7 @@ These exercises provide a solid foundation for understanding **register-level pr
 - [STM32F103RB Reference Manual](https://www.st.com/resource/en/reference_manual/cd00171190.pdf)
 - [STM32duino GitHub Repository](https://github.com/stm32duino)
 - [ARM Cortex-M3 Technical Reference Manual](https://developer.arm.com/documentation/ddi0337/e/)
+- [Bare-Metal-Tutorial using STMCUbeIDE](https://www.youtube.com/watch?v=UnjaBwNVA_o)
 
 ---
 
