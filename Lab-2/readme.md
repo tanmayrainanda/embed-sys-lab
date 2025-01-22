@@ -4,6 +4,8 @@ Welcome to the **Bare Metal Programming Lab**! In this lab, you will learn how t
 1. **LED Flashing Speed Control Using Delay** ⏳
 2. **LED Flashing Speed Control Using Millis** ⏱️
 
+   ![stm32](https://github.com/user-attachments/assets/f3f2674e-00b5-40ef-8e6d-065de55f69b3)
+
 This lab builds on the first lab, where you used the Arduino IDE to program the onboard button and LED. Now, you will achieve the same functionality using **register-level programming** without relying on Arduino libraries.
 
 ---
@@ -125,7 +127,52 @@ int main(void) {
         delay(delay_time * 1000); // Delay based on button presses
     }
 }
+
 ```
+## Terminologies and Explanation
+
+### `#include "stm32f1xx.h"`
+- **Purpose**: Includes the STM32F1xx header file, which defines all registers and peripherals for the STM32F1xx series.
+
+---
+### `volatile uint8_t button_presses = 0;`
+- **Purpose**: Declares a variable to track the number of button presses.
+- **Explanation**:
+  - `volatile`: Ensures the variable is not optimized by the compiler, as it can change unexpectedly (e.g., in an interrupt).
+  - `uint8_t`: An unsigned 8-bit integer (0 to 255).
+
+---
+### `void EXTI0_IRQHandler(void)`
+- **Purpose**: Interrupt Service Routine (ISR) for EXTI0 (external interrupt for PA0).
+- **Explanation**:
+  - Clears the interrupt pending bit and updates the `button_presses` variable.
+
+---
+### `RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;`
+- **Purpose**: Enables the clock for GPIOC and AFIO (Alternate Function I/O).
+
+---
+### `GPIOC->CRH &= ~(0xF << 20);` and `GPIOC->CRH |= (0x3 << 20);`
+- **Purpose**: Configures PC13 as an output with maximum speed (50 MHz).
+
+---
+### `AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;`
+- **Purpose**: Configures PA0 as the source for EXTI0.
+
+---
+### `NVIC_EnableIRQ(EXTI0_IRQn);`
+- **Purpose**: Enables the EXTI0 interrupt in the Nested Vectored Interrupt Controller (NVIC).
+
+---
+### `void delay(volatile uint32_t count)`
+- **Purpose**: A simple delay function using a loop.
+
+---
+### `GPIOC->ODR ^= (1 << 13);`
+- **Purpose**: Toggles the state of PC13 (onboard LED).
+---
+
+
 ## Use Case 2: LED Flashing Speed Control Using Millis ⏱️
 
 ### Objective 🎯
@@ -196,6 +243,25 @@ int main(void) {
     }
 }
 ```
+## Terminologies and Explanation
+
+### `uint32_t millis(void)`
+- **Purpose**: A millis-like function using the SysTick timer to track time.
+
+---
+### `SysTick->LOAD = 72000 - 1;`
+- **Purpose**: Configures the SysTick timer to generate an interrupt every 1 ms (72 MHz / 1000).
+
+---
+### `SysTick->CTRL = 0x07;`
+- **Purpose**: Enables the SysTick timer and uses the processor clock.
+
+---
+### `if (current_millis - previous_millis >= interval)`
+- **Purpose**: Checks if the time difference exceeds the interval, then toggles the LED.
+---
+
+
 ## Conclusion 🏁
 In this lab, you learned how to program the **STM32F103RB-Nucleo board** using **bare metal C** in the **Arduino IDE**. You implemented two use cases:
 1. **Delay-based LED flashing speed control**.
@@ -206,9 +272,15 @@ These exercises provide a solid foundation for understanding **register-level pr
 ---
 
 ## Additional Resources 📚
-- [STM32F103RB Reference Manual](https://www.st.com/resource/en/reference_manual/cd00171190.pdf)
-- [STM32duino GitHub Repository](https://github.com/stm32duino)
-- [ARM Cortex-M3 Technical Reference Manual](https://developer.arm.com/documentation/ddi0337/e/)
+### STM32F1xx Reference Manual
+- [STM32F1xx Reference Manual](https://www.st.com/resource/en/reference_manual/cd00171190.pdf)
+### ARM Cortex-M3 Technical Reference Manual
+- [ARM Cortex-M3 TRM](https://developer.arm.com/documentation/ddi0337/e/)
+### STM32duino GitHub Repository
+- [STM32duino GitHub](https://github.com/stm32duino)
+### Embedded Systems Tutorials
+- [DeepBlue Embedded](https://deepbluembedded.com/)
+- [Embedded.fm](https://embedded.fm/)
 - [Bare-Metal-Tutorial using STMCUbeIDE](https://www.youtube.com/watch?v=UnjaBwNVA_o)
 
 ---
