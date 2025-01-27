@@ -40,9 +40,7 @@ This article provides step-by-step instructions to:
   
   ![image](https://github.com/user-attachments/assets/3b182dc2-a422-47ac-bc68-38cfe2d1bfe7)
   
-- Implement basic LED blinking logic
-
-Follow the article's instructions to get your STM32 project up and running before proceeding to the rest of the steps in this README.
+Quickly go through the article's instructions to get your STM32 project up and running before you go ahead with the rest of the steps in this README.
 
 ---
 
