@@ -31,7 +31,15 @@ This article provides step-by-step instructions to:
 
 - Install STM32CubeIDE
 - Create and configure a new STM32 project
+
+  ![image](https://github.com/user-attachments/assets/63c80666-e119-46c7-8697-0f1aea33b5c1)
+  ![image](https://github.com/user-attachments/assets/996a737f-1e63-442c-8d86-9c314e12e390)
+  
 - Set up the GPIO pins for LED control
+- Locate the Main.c as per the below location to write the code
+  
+  ![image](https://github.com/user-attachments/assets/3b182dc2-a422-47ac-bc68-38cfe2d1bfe7)
+  
 - Implement basic LED blinking logic
 
 Follow the article's instructions to get your STM32 project up and running before proceeding to the rest of the steps in this README.
