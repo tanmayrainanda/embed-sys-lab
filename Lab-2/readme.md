@@ -37,7 +37,7 @@ This lab builds on the first lab, where you used the Arduino IDE to program the 
   - STM32F103RB-Nucleo board.
   - USB cable for programming and power.
 - **Software**:
-  - Arduino IDE with STM32duino support (installed via STM32 Core).
+  - Arduino IDE with STM32duino support (installed via STM32 Core)/ STM32Cube-IDE(reffer the folder with-cube-ide) 
   - STM32F1xx HAL library (optional for reference).
 - **Knowledge**:
   - Basic understanding of C programming.
