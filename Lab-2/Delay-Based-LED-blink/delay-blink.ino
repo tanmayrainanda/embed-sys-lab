@@ -1,47 +1,64 @@
-#include "stm32f1xx.h"
 
-volatile uint8_t button_presses = 0;
-volatile uint32_t delay_time = 500; // Default delay
+#include "stm32f1xx.h"  // Include STM32 header for direct register access
 
-void EXTI0_IRQHandler(void) {
-    if (EXTI->PR & EXTI_PR_PR0) {
-        EXTI->PR |= EXTI_PR_PR0;  // Clear pending bit
-        button_presses++;
-        if (button_presses > 3) button_presses = 1;
-
-        // Update delay time based on button presses
-        if (button_presses == 1) delay_time = 50;
-        else if (button_presses == 2) delay_time = 500;
-        else if (button_presses == 3) delay_time = 1000;
+// Delay function for the LED
+void delay(int count) {
+    for (volatile int i = 0; i < count; i++) {
+        for (volatile int j = 0; j < 1000; j++) {
+            __asm__("nop"); // No operation to prevent compiler optimization
+        }
     }
 }
 
-void delay(volatile uint32_t count) {
-    while (count--);
+// Debounce function for PC13 button press
+int debounce_button(void) {
+    if (!(GPIOC->IDR & GPIO_IDR_IDR13)) {  // Button pressed (active low)
+        delay(50);  // Debounce delay (50ms)
+        if (!(GPIOC->IDR & GPIO_IDR_IDR13)) {  // Confirm button press
+            return 1;
+        }
+    }
+    return 0;
 }
 
 int main(void) {
-    // Enable GPIOC and AFIO clocks
-    RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;
+    // Enable GPIOA and GPIOC clocks (for onboard LED and button)
+    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPCEN;
 
-    // Configure PC13 as output (onboard LED)
-    GPIOC->CRH &= ~(0xF << 20);  // Clear mode for PC13
-    GPIOC->CRH |= (0x3 << 20);   // Set PC13 as output
+    // Configure PA5 as output (LED pin)
+    GPIOA->CRL &= ~GPIO_CRL_MODE5;    // Clear MODE5 bits
+    GPIOA->CRL &= ~GPIO_CRL_CNF5;     // Clear CNF5 bits
+    GPIOA->CRL |= GPIO_CRL_MODE5_1;   // Set MODE5 to output (2 MHz)
 
-    // Configure PA0 as input (onboard button)
-    GPIOA->CRL &= ~(0xF << 0);   // Clear mode for PA0
-    GPIOA->CRL |= (0x4 << 0);    // Set PA0 as input
+    // Configure PC13 as input (button pin)
+    GPIOC->CRH &= ~GPIO_CRH_MODE13;   // Clear MODE13 bits
+    GPIOC->CRH &= ~GPIO_CRH_CNF13;    // Clear CNF13 bits
+    GPIOC->CRH |= GPIO_CRH_CNF13_0;   // Set CNF13 to input floating
 
-    // Configure EXTI0 for PA0
-    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;  // Select PA0 for EXTI0
-    EXTI->IMR |= EXTI_IMR_MR0;   // Enable EXTI0
-    EXTI->RTSR |= EXTI_RTSR_TR0; // Enable rising edge trigger
+    int delay_time = 500;  // Default delay time (500ms)
 
-    // Enable EXTI0 interrupt in NVIC
-    NVIC_EnableIRQ(EXTI0_IRQn);
-
+    // Main loop
     while (1) {
-        GPIOC->ODR ^= (1 << 13);  // Toggle PC13 (onboard LED)
-        delay(delay_time * 1000); // Delay based on button presses
+        if (debounce_button()) {
+            // Change delay time based on button press
+            if (delay_time == 500) {
+                delay_time = 1000;  // Change delay to 1000ms
+            } else if (delay_time == 1000) {
+                delay_time = 50;    // Change delay to 50ms
+            } else {
+                delay_time = 500;   // Change delay to 500ms
+            }
+            // Wait for button release
+            while (!(GPIOC->IDR & GPIO_IDR_IDR13)) {
+                delay(10);  // Small delay to prevent bouncing
+            }
+        }
+
+        GPIOA->ODR |= GPIO_ODR_ODR5;  // Turn on LED (set PA5 high)
+        delay(delay_time);            // Delay based on button press
+        GPIOA->ODR &= ~GPIO_ODR_ODR5; // Turn off LED (set PA5 low)
+        delay(delay_time);            // Delay based on button press
     }
+
+    return 0;  // This line is not needed in an infinite loop but added for completeness
 }
