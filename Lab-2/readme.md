@@ -94,7 +94,7 @@ Control the flashing speed of the onboard LED using the onboard button. The LED 
 3. Use a state machine to track the number of button presses.
 4. Change the LED flashing speed based on the state.
 
-### Code Example (Basic OnBoard led blink- OK Tested) 💻
+### Code Example (Basic OnBoard led blink - OK Tested) 💻
 ```c
 
 #include "stm32f1xx.h"  // Include STM32 header for direct register access
