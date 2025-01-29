@@ -29,40 +29,40 @@ Each lab follows a structured approach, including:
 - 🏗️ **Required Components:**
   - STM32-NUcleo Development Board, Debugger Tools
 
-### 🔹 **Lab 3: Introduction to RTOS**
-- 🌡️ **Challenge:** Implement an **automatic fan controller** using RTOS
-- 🔄 Understanding **task scheduling & multitasking**
-- 🔑 Implementing **Semaphores & Message Queues**
-- 🏗️ **Required Components:**
-  - FreeRTOS Libraries, STM32 Development Board
-
-### 🔹 **Lab 4: Sensor Implementation**
+### 🔹 **Lab 3: Sensor Implementation**
 - 🎯 **Mission:** Build a **Smart Sensor System**
 - 🛠️ Interfacing sensors **(Temperature, Ultrasonic, IMU)**
 - 🕵️ **Mystery Sensor Box:** Identify unknown sensors & interface them
 - 🏗️ **Required Components:**
-  - DHT11, MPU6050, Ultrasonic Sensor
+  - DHT11, MPU6050(accelerometer/ Gyrometer), Ultrasonic Sensor, IR Sensor Analog/Digital
 
-### 🔹 **Lab 5: Actuator Control**
+### 🔹 **Lab 4: Actuator Control**
 - 🔄 Implementing a **motor control system using sensors**
 - 🎛️ Controlling **Servos, Motors, Relays**
 - 📡 **PWM & PID basics**
 - 🤖 **Robot Arm Mini-Challenge:** Pick & place an object
 - 🏗️ **Required Components:**
   - Servo Motors, DC Motors, Motor Driver (L298N)
-
-### 🔹 **Lab 6: Peer-to-Peer Communication**
+ 
+### 🔹 **Lab 5: Peer-to-Peer Communication**
 - ⚡ **Race Against Time:** Transmit data between controllers faster than your peers
 - 🔄 Understanding **UART, SPI, I2C, and CAN**
 - 📶 **Wireless Communication:** ESP8266, NRF24L01
 - 🏗️ **Required Components:**
   - STM32-Nucleo/ ESP8266, NRF24L01, RS485 Modules
-
-### 🔹 **Lab 7: Advanced Communication Protocols**
+ 
+### 🔹 **Lab 6: Advanced Communication Protocols**
 - 🏆 **Team Challenge:** Develop a **multi-node wireless sensor network**
 - 🔄 Implementing **MQTT & LoRa communication**
 - 🏗️ **Required Components:**
   - STM32, Arduino, LoRa Modules, WiFi/Bluetooth Modules
+  
+### 🔹 **Lab 7: Introduction to RTOS**
+- 🌡️ **Challenge:** Implement an **automatic fan controller** using RTOS
+- 🔄 Understanding **task scheduling & multitasking**
+- 🔑 Implementing **Semaphores & Message Queues**
+- 🏗️ **Required Components:**
+  - FreeRTOS Libraries, STM32 Development Board
 
 ### 🔹 **Lab 8: TinyML Basics**
 - 🧠 **AI in Action:** Train a **TinyML model to recognize gestures**
