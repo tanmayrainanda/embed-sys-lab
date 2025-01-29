@@ -43,14 +43,16 @@ This lab builds on the first lab, where you used the Arduino IDE to program the 
         http://dan.drown.org/stm32duino/package_STM32duino_index.json
         https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
         https://raw.githubusercontent.com/stm32duino/BoardManagerFiles/refs/heads/main/package_stmicroelectronics_index.json
+   - Search Stm32 in the board and download the available one board libraries
        
        
   - STM32F1xx HAL library 
  
-        https://github.com/STMicroelectronics/STM32CubeF1
-        https://github.com/STMicroelectronics/stm32f1xx-hal-driver/tree/master
-        https://github.com/stm32duino/Arduino_Core_STM32/blob/main/system/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h (Place this in the project folder after download)
-    
+        (Place this in the project folder after download) https://github.com/stm32duino/Arduino_Core_STM32/blob/main/system/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
+        (Optional) https://github.com/STMicroelectronics/stm32f1xx-hal-driver/tree/master
+        (Optional) https://github.com/STMicroelectronics/STM32CubeF1
+        
+            
   - Download the HAL & CMSIS Drivers from the official stm32 repo as required to be in every project folder as a dependency
   - Download the repo and just copy paste the 2 folder from STM32CubeF1/Drivers/------> CMSIS & STM32F1xx_HAL_Driver Drivers
     [Official-Driver-repo-link](https://github.com/STMicroelectronics/STM32CubeF1/tree/master/Drivers)
