@@ -4,7 +4,7 @@
 This lab session focuses on exploring microcontrollers with varying capabilities and architectures (STM32 Nucleo-64, Arduino Uno, and ESP32 WROOM) using the Arduino IDE. 
 You will understand how to interface with common sensors, benchmark their performance, and analyze the differences in behavior across different microcontrollers.
 
-![image](https://github.com/user-attachments/assets/9cb32cbd-9cdc-4bcf-a5ad-992c69558af9)
+   https://github.com/user-attachments/assets/e32407f9-6267-4fef-bb70-fbf6e3dce335
 
 ## Key Learning Outcomes 📚
 - Understand the differences in architecture and performance between STM32, Arduino, and ESP32.
