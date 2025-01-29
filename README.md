@@ -31,7 +31,7 @@ Each lab follows a structured approach, including:
 
 ### 🔹 **Lab 3: Sensor Implementation**
 - 🎯 **Mission:** Build a **Smart Sensor System**
-- 🛠️ Interfacing sensors **(Temperature, Ultrasonic, IMU)**
+- 🛠️ Interfacing sensors **(Temperature, Ultrasonic, IMU, A/D sensors)**
 - 🕵️ **Mystery Sensor Box:** Identify unknown sensors & interface them
 - 🏗️ **Required Components:**
   - DHT11, MPU6050(accelerometer/ Gyrometer), Ultrasonic Sensor, IR Sensor Analog/Digital
