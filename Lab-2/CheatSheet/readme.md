@@ -11,7 +11,7 @@ This cheat sheet provides a comprehensive guide to **bare metal programming** on
 - **SRAM**: 20 KB
 - **GPIO Pins**: 51 (with alternate functions)
 - **Onboard Peripherals**:
-  - LED (connected to PC13)
+  - LED (connected to PA5)
   - Button (connected to PC13 or another GPIO pin)
   - USB connector for programming and power
   - Arduino-compatible headers
