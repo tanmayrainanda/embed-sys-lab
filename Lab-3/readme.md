@@ -8,7 +8,7 @@ You will understand how to interface with common sensors, benchmark their perfor
 
 ## Key Learning Outcomes 📚
 - Understand the differences in architecture and performance between STM32, Arduino, and ESP32.
-- Interface and collect data from DHT11 (temperature and humidity sensor), HC-SR04 (ultrasonic distance sensor), GY-521 (IMU sensor) using I2C, and 10 potentiometers for analog to digital conversion.
+- Interface and collect data from DHT11 (temperature and humidity sensor), HC-SR04 (ultrasonic distance sensor), GY-521 (IMU sensor) using I2C, and 10KOhm potentiometers for analog to digital conversion.
 - Write and upload common code bases using Arduino IDE with relevant drivers and libraries.
 - Benchmark performance metrics and learn best practices for sensor integration.
 
@@ -23,7 +23,7 @@ You will understand how to interface with common sensors, benchmark their perfor
   - DHT11 (Temperature and Humidity Sensor)
   - HC-SR04 (Ultrasonic Distance Sensor)
   - GY-521 (Accelerometer/Gyroscope)
-  - 10 Potentiometers for Analog to Digital Conversion
+  - 10KOhm Potentiometers for Analog to Digital Conversion
 - **Additional:**
   - Jumper wires
   - Breadboard
@@ -32,6 +32,17 @@ You will understand how to interface with common sensors, benchmark their perfor
   - Multimeters for precise utilization during various operations 
 
 ---
+
+For refference Understanding of sensors:
+1. [ Voltage divider](https://electronicsclub.info/vdividers.htm#:~:text=Most%20input%20transducers%20%28sensors%29%20vary%20their%20resistance%20and,input%20to%20an%20IC%20or%20a%20transistor%20switch.)
+2. [DHT11](https://www.electronicwings.com/sensors-modules/dht11)
+   
+   -https://github.com/RobTillaart/DHTstable (Required library)
+   
+   -https://github.com/adafruit/DHT-sensor-library (Required library)
+3. [Ultrasonic Sensor](https://www.learnelectronicsindia.com/post/ultrasonic-sensor)
+4. [GY-521](https://wiki.openelab.io/sensors/gy-521-mpu-6050-3-axis-gyroscope-and-acceleration-sensor)
+   - https://github.com/ElectronicCats/mpu6050 (Required library)
 
 ## Setup Instructions 🔧
 
@@ -68,7 +79,7 @@ You will understand how to interface with common sensors, benchmark their perfor
 
 ## Activities 🛠️
 
-### Note: The code remains the same, refer to the respective folder for code samples to test and datasheets for correct pin configurations.
+### Note: The code remains the same, refer to the respective COntroller Datahseets for code modification to test and observe the outcomes of each test case.
 
 ### 1. **Blink LED (Basic Test) 💡**
 This activity verifies the successful configuration of each board.
