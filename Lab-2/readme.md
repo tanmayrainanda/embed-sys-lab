@@ -37,8 +37,26 @@ This lab builds on the first lab, where you used the Arduino IDE to program the 
   - STM32F103RB-Nucleo board.
   - USB cable for programming and power.
 - **Software**:
-  - Arduino IDE with STM32duino support (installed via STM32 Core).
-  - STM32F1xx HAL library (optional for reference).
+  - Arduino IDE with STM32duino support (installed via STM32 Core)/ STM32Cube-IDE(reffer the folder with-cube-ide)
+  - Add the below Board in the preference to setup the enviourment for STM controllers via: file-->Add_Prefereences
+    
+        http://dan.drown.org/stm32duino/package_STM32duino_index.json
+        https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json
+        https://raw.githubusercontent.com/stm32duino/BoardManagerFiles/refs/heads/main/package_stmicroelectronics_index.json
+   - Search Stm32 in the board and download the available one board libraries
+       
+       
+  - STM32F1xx HAL library 
+ 
+        (Place this in the project folder after download) https://github.com/stm32duino/Arduino_Core_STM32/blob/main/system/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
+        (Optional) https://github.com/STMicroelectronics/stm32f1xx-hal-driver/tree/master
+        (Optional) https://github.com/STMicroelectronics/STM32CubeF1
+        
+            
+  - Download the HAL & CMSIS Drivers from the official stm32 repo as required to be in every project folder as a dependency
+  - Download the repo and just copy paste the 2 folder from STM32CubeF1/Drivers/------> CMSIS & STM32F1xx_HAL_Driver Drivers
+    [Official-Driver-repo-link](https://github.com/STMicroelectronics/STM32CubeF1/tree/master/Drivers)
+    
 - **Knowledge**:
   - Basic understanding of C programming.
   - Familiarity with Arduino IDE and STM32 boards.
@@ -73,105 +91,115 @@ Control the flashing speed of the onboard LED using the onboard button. The LED 
 - **3 presses**: Delay = 1000 ms.
 
 ### Steps 🛠️
-1. Configure the onboard LED (PC13) as an output.
-2. Configure the onboard button (PC13 or another pin) as an input with an interrupt.
+1. Configure the onboard LED (PA5) as an output.
+2. Configure the onboard button (PA5 or another pin) as an input with an interrupt.
 3. Use a state machine to track the number of button presses.
 4. Change the LED flashing speed based on the state.
 
-### Code Example 💻
+### Code Example (Basic OnBoard led blink - OK Tested) 💻
 ```c
-#include "stm32f1xx.h"
 
-volatile uint8_t button_presses = 0;
-volatile uint32_t delay_time = 500; // Default delay
+#include "stm32f1xx.h"  // Include STM32 header for direct register access
 
-void EXTI0_IRQHandler(void) {
-    if (EXTI->PR & EXTI_PR_PR0) {
-        EXTI->PR |= EXTI_PR_PR0;  // Clear pending bit
-        button_presses++;
-        if (button_presses > 3) button_presses = 1;
-
-        // Update delay time based on button presses
-        if (button_presses == 1) delay_time = 50;
-        else if (button_presses == 2) delay_time = 500;
-        else if (button_presses == 3) delay_time = 1000;
+// Improved delay function
+void delay(int count) {
+    for (volatile int i = 0; i < count; i++) {
+        for (volatile int j = 0; j < 1000; j++) {
+            __asm__("nop"); // No operation to prevent compiler optimization
+        }
     }
-}
-
-void delay(volatile uint32_t count) {
-    while (count--);
 }
 
 int main(void) {
-    // Enable GPIOC and AFIO clocks
-    RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;
+    // Enable GPIOA clock (for onboard LED on Nucleo F103RB)
+    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
 
-    // Configure PC13 as output (onboard LED)
-    GPIOC->CRH &= ~(0xF << 20);  // Clear mode for PC13
-    GPIOC->CRH |= (0x3 << 20);   // Set PC13 as output
+    // Configure PA5 as output (LED pin)
+    GPIOA->CRL &= ~GPIO_CRL_MODE5;    // Clear MODE5 bits
+    GPIOA->CRL &= ~GPIO_CRL_CNF5;     // Clear CNF5 bits
+    GPIOA->CRL |= GPIO_CRL_MODE5_1;   // Set MODE5 to output (2 MHz)
 
-    // Configure PA0 as input (onboard button)
-    GPIOA->CRL &= ~(0xF << 0);   // Clear mode for PA0
-    GPIOA->CRL |= (0x4 << 0);    // Set PA0 as input
-
-    // Configure EXTI0 for PA0
-    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;  // Select PA0 for EXTI0
-    EXTI->IMR |= EXTI_IMR_MR0;   // Enable EXTI0
-    EXTI->RTSR |= EXTI_RTSR_TR0; // Enable rising edge trigger
-
-    // Enable EXTI0 interrupt in NVIC
-    NVIC_EnableIRQ(EXTI0_IRQn);
-
+    // Main loop
     while (1) {
-        GPIOC->ODR ^= (1 << 13);  // Toggle PC13 (onboard LED)
-        delay(delay_time * 1000); // Delay based on button presses
+        GPIOA->ODR |= GPIO_ODR_ODR5;  // Turn on LED (set PA5 high)
+        delay(500);                   // Delay
+        GPIOA->ODR &= ~GPIO_ODR_ODR5; // Turn off LED (set PA5 low)
+        delay(500);                   // Delay
     }
+
+    return 0; // This line is not needed in an infinite loop but added for completeness
 }
 
 ```
-## Terminologies and Explanation
 
-### `#include "stm32f1xx.h"`
-- **Purpose**: Includes the STM32F1xx header file, which defines all registers and peripherals for the STM32F1xx series.
+### Code Example (Basic OnBoard led blink with delay change via button long press - OK Tested) 💻
+```c
 
----
-### `volatile uint8_t button_presses = 0;`
-- **Purpose**: Declares a variable to track the number of button presses.
-- **Explanation**:
-  - `volatile`: Ensures the variable is not optimized by the compiler, as it can change unexpectedly (e.g., in an interrupt).
-  - `uint8_t`: An unsigned 8-bit integer (0 to 255).
+#include "stm32f1xx.h"  // Include STM32 header for direct register access
 
----
-### `void EXTI0_IRQHandler(void)`
-- **Purpose**: Interrupt Service Routine (ISR) for EXTI0 (external interrupt for PA0).
-- **Explanation**:
-  - Clears the interrupt pending bit and updates the `button_presses` variable.
+// Delay function for the LED
+void delay(int count) {
+    for (volatile int i = 0; i < count; i++) {
+        for (volatile int j = 0; j < 1000; j++) {
+            __asm__("nop"); // No operation to prevent compiler optimization
+        }
+    }
+}
 
----
-### `RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;`
-- **Purpose**: Enables the clock for GPIOC and AFIO (Alternate Function I/O).
+// Debounce function for PC13 button press
+int debounce_button(void) {
+    if (!(GPIOC->IDR & GPIO_IDR_IDR13)) {  // Button pressed (active low)
+        delay(50);  // Debounce delay (50ms)
+        if (!(GPIOC->IDR & GPIO_IDR_IDR13)) {  // Confirm button press
+            return 1;
+        }
+    }
+    return 0;
+}
 
----
-### `GPIOC->CRH &= ~(0xF << 20);` and `GPIOC->CRH |= (0x3 << 20);`
-- **Purpose**: Configures PC13 as an output with maximum speed (50 MHz).
+int main(void) {
+    // Enable GPIOA and GPIOC clocks (for onboard LED and button)
+    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPCEN;
 
----
-### `AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;`
-- **Purpose**: Configures PA0 as the source for EXTI0.
+    // Configure PA5 as output (LED pin)
+    GPIOA->CRL &= ~GPIO_CRL_MODE5;    // Clear MODE5 bits
+    GPIOA->CRL &= ~GPIO_CRL_CNF5;     // Clear CNF5 bits
+    GPIOA->CRL |= GPIO_CRL_MODE5_1;   // Set MODE5 to output (2 MHz)
 
----
-### `NVIC_EnableIRQ(EXTI0_IRQn);`
-- **Purpose**: Enables the EXTI0 interrupt in the Nested Vectored Interrupt Controller (NVIC).
+    // Configure PC13 as input (button pin)
+    GPIOC->CRH &= ~GPIO_CRH_MODE13;   // Clear MODE13 bits
+    GPIOC->CRH &= ~GPIO_CRH_CNF13;    // Clear CNF13 bits
+    GPIOC->CRH |= GPIO_CRH_CNF13_0;   // Set CNF13 to input floating
 
----
-### `void delay(volatile uint32_t count)`
-- **Purpose**: A simple delay function using a loop.
+    int delay_time = 500;  // Default delay time (500ms)
 
----
-### `GPIOC->ODR ^= (1 << 13);`
-- **Purpose**: Toggles the state of PC13 (onboard LED).
----
+    // Main loop
+    while (1) {
+        if (debounce_button()) {
+            // Change delay time based on button press
+            if (delay_time == 500) {
+                delay_time = 1000;  // Change delay to 1000ms
+            } else if (delay_time == 1000) {
+                delay_time = 50;    // Change delay to 50ms
+            } else {
+                delay_time = 500;   // Change delay to 500ms
+            }
+            // Wait for button release
+            while (!(GPIOC->IDR & GPIO_IDR_IDR13)) {
+                delay(10);  // Small delay to prevent bouncing
+            }
+        }
 
+        GPIOA->ODR |= GPIO_ODR_ODR5;  // Turn on LED (set PA5 high)
+        delay(delay_time);            // Delay based on button press
+        GPIOA->ODR &= ~GPIO_ODR_ODR5; // Turn off LED (set PA5 low)
+        delay(delay_time);            // Delay based on button press
+    }
+
+    return 0;  // This line is not needed in an infinite loop but added for completeness
+}
+
+```
 
 ## Use Case 2: LED Flashing Speed Control Using Millis ⏱️
 
@@ -179,87 +207,17 @@ int main(void) {
 Control the flashing speed of the onboard LED using the onboard button. Instead of using a delay function, use a **millis-based approach** to track time and toggle the LED.
 
 ### Steps 🛠️
-1. Configure the onboard LED (PC13) as an output.
+1. Configure the onboard LED (PA5) as an output.
 2. Configure the onboard button (PC13 or another pin) as an input with an interrupt.
 3. Use a state machine to track the number of button presses.
 4. Use a **millis-like function** to track time and toggle the LED.
 
-### Code Example 💻
+### Code Example (Basic OnBoard led blink with millis change via button long press - In Progress) 💻
 ```c
-#include "stm32f1xx.h"
 
-volatile uint8_t button_presses = 0;
-volatile uint32_t interval = 500; // Default interval
-uint32_t previous_millis = 0;
+IN Progress as Testing
 
-void EXTI0_IRQHandler(void) {
-    if (EXTI->PR & EXTI_PR_PR0) {
-        EXTI->PR |= EXTI_PR_PR0;  // Clear pending bit
-        button_presses++;
-        if (button_presses > 3) button_presses = 1;
-
-        // Update interval based on button presses
-        if (button_presses == 1) interval = 50;
-        else if (button_presses == 2) interval = 500;
-        else if (button_presses == 3) interval = 1000;
-    }
-}
-
-uint32_t millis(void) {
-    return SysTick->VAL; // Use SysTick timer for millis-like functionality
-}
-
-int main(void) {
-    // Enable GPIOC and AFIO clocks
-    RCC->APB2ENR |= RCC_APB2ENR_IOPCEN | RCC_APB2ENR_AFIOEN;
-
-    // Configure PC13 as output (onboard LED)
-    GPIOC->CRH &= ~(0xF << 20);  // Clear mode for PC13
-    GPIOC->CRH |= (0x3 << 20);   // Set PC13 as output
-
-    // Configure PA0 as input (onboard button)
-    GPIOA->CRL &= ~(0xF << 0);   // Clear mode for PA0
-    GPIOA->CRL |= (0x4 << 0);    // Set PA0 as input
-
-    // Configure EXTI0 for PA0
-    AFIO->EXTICR[0] |= AFIO_EXTICR1_EXTI0_PA;  // Select PA0 for EXTI0
-    EXTI->IMR |= EXTI_IMR_MR0;   // Enable EXTI0
-    EXTI->RTSR |= EXTI_RTSR_TR0; // Enable rising edge trigger
-
-    // Enable EXTI0 interrupt in NVIC
-    NVIC_EnableIRQ(EXTI0_IRQn);
-
-    // Configure SysTick timer for millis-like functionality
-    SysTick->LOAD = 72000 - 1;   // 1 ms interval (72 MHz / 1000)
-    SysTick->VAL = 0;            // Clear current value
-    SysTick->CTRL = 0x07;        // Enable SysTick, use processor clock
-
-    while (1) {
-        uint32_t current_millis = millis();
-        if (current_millis - previous_millis >= interval) {
-            previous_millis = current_millis;
-            GPIOC->ODR ^= (1 << 13);  // Toggle PC13 (onboard LED)
-        }
-    }
-}
 ```
-## Terminologies and Explanation
-
-### `uint32_t millis(void)`
-- **Purpose**: A millis-like function using the SysTick timer to track time.
-
----
-### `SysTick->LOAD = 72000 - 1;`
-- **Purpose**: Configures the SysTick timer to generate an interrupt every 1 ms (72 MHz / 1000).
-
----
-### `SysTick->CTRL = 0x07;`
-- **Purpose**: Enables the SysTick timer and uses the processor clock.
-
----
-### `if (current_millis - previous_millis >= interval)`
-- **Purpose**: Checks if the time difference exceeds the interval, then toggles the LED.
----
 
 
 ## Conclusion 🏁
