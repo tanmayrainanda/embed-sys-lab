@@ -1,29 +1,30 @@
 // ======= Board Configuration =======
-#if defined(ARDUINO_ARCH_ESP32)
-#define BOARD_TYPE "ESP32"
-#define LED_PIN 2
-#define DHT_PIN 4
-#define TRIGGER_PIN 5
-#define ECHO_PIN 18
+// #if defined(ARDUINO_ARCH_ESP32)
+// #define BOARD_TYPE "ESP32"
+// #define LED_PIN 2
+// #define DHT_PIN 4
+// #define TRIGGER_PIN 5
+// #define ECHO_PIN 18
 // Potentiometer pins for ESP32
-const int POT_PINS[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14};
-#elif defined(ARDUINO_ARCH_STM32)
+// const int POT_PINS[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14};
+// #elif defined(ARDUINO_ARCH_STM32)
 #define BOARD_TYPE "STM32"
 #define LED_PIN PC13
 #define DHT_PIN PA1
 #define TRIGGER_PIN PA2
 #define ECHO_PIN PA3
 // Potentiometer pins for STM32
-const int POT_PINS[] = {PA0, PA1, PA4, PA5, PA6, PA7, PB0, PB1, PC4, PC5};
-#else // Arduino
-#define BOARD_TYPE "Arduino"
-#define LED_PIN 13
-#define DHT_PIN 2
-#define TRIGGER_PIN 3
-#define ECHO_PIN 4
+const int POT_PINS[] = {PA0};
+// #else // Arduino
+// #define BOARD_TYPE "Arduino"
+// #define LED_PIN 13
+// #define DHT_PIN 2
+// #define TRIGGER_PIN 3
+// #define ECHO_PIN 4
 // Potentiometer pins for Arduino
-const int POT_PINS[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
-#endif
+// const int POT_PINS[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
+// const int POT_PINS[] = {A0};
+// #endif
 
 // ======= Required Libraries =======
 #include <DHT.h>
@@ -35,7 +36,7 @@ const int POT_PINS[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 DHT dht(DHT_PIN, DHTTYPE);
 MPU6050 mpu;
 
-const int NUM_POTS = 10;
+const int NUM_POTS = 1;
 unsigned long lastPrintTime = 0;
 const int PRINT_INTERVAL = 1000; // Print every second
 
@@ -200,11 +201,12 @@ void setup()
 void loop()
 {
     // Uncomment the experiment you want to run
-    // loop_led();
-    // loop_dht();
-    // loop_ultrasonic();
-    // loop_imu();
-    // loop_pots();
+    loop_led();
+//     loop_dht();
+//     loop_ultrasonic();
+//     loop_imu();
+//     loop_pots();
+//     benchmark();
 
     delay(100); // Small delay to prevent serial buffer overflow
 }
