@@ -103,7 +103,7 @@ After running the same code on all three boards:
 3. **Memory Usage:** 💾
    - Note memory usage displayed in the Arduino IDE during code upload.
 
-| **Aspect**        | **STM32 Nucleo-64** | **Arduino Nano** | **ESP32 WROOM** |
+| **Aspect**        | **STM32 Nucleo-64** | **Arduino Uno** | **ESP32 WROOM** |
 |------------------|--------------------|----------------|----------------|
 | Clock Speed      | 72 MHz             | 16 MHz         | 240 MHz        |
 | Power Consumption| Moderate            | Low            | High           |
