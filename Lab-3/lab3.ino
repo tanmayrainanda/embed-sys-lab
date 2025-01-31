@@ -9,12 +9,12 @@
 const int POT_PINS[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14};
 #elif defined(ARDUINO_ARCH_STM32)
 #define BOARD_TYPE "STM32"
-#define LED_PIN PC13
-#define DHT_PIN PA1
-#define TRIGGER_PIN PA2
-#define ECHO_PIN PA3
+#define LED_PIN C13
+#define DHT_PIN A1
+#define TRIGGER_PIN A2
+#define ECHO_PIN A3
 // Potentiometer pins for STM32
-const int POT_PINS[] = {PA0, PA1, PA4, PA5, PA6, PA7, PB0, PB1, PC4, PC5};
+const int POT_PINS[] = {A0};
 #else // Arduino
 #define BOARD_TYPE "Arduino"
 #define LED_PIN 13
