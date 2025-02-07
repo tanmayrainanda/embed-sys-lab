@@ -21,6 +21,8 @@ Additionally, the lab includes an **Obstacle Detection and Collision Detection P
 - **GY-521 IMU Data Visualization:** Logs IMU data to CSV for real-time tracking and visualization.
 - **Obstacle Detection and Collision Detection:** Uses ultrasonic sensors to detect obstacles and assess sudden collision events based on abrupt deceleration changes captured by the GY-521 IMU.
 
+![embedded_lab_projects_summary](https://github.com/user-attachments/assets/c17ad428-a2d6-49de-9bc7-ab7322eab771)
+
 ---
 
 ## Required Components 🔧
