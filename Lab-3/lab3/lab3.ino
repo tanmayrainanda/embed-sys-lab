@@ -1,20 +1,20 @@
 // ======= Board Configuration =======
 // #if defined(ARDUINO_ARCH_ESP32)
-// #define BOARD_TYPE "ESP32"
-// #define LED_PIN 2
-// #define DHT_PIN 4
-// #define TRIGGER_PIN 5
-// #define ECHO_PIN 18
+#define BOARD_TYPE "ESP32"
+#define LED_PIN 2
+#define DHT_PIN 32
+#define TRIGGER_PIN 33
+#define ECHO_PIN 25
 // Potentiometer pins for ESP32
-// const int POT_PINS[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14};
+const int POT_PINS[] = {26};
 // #elif defined(ARDUINO_ARCH_STM32)
-#define BOARD_TYPE "STM32"
-#define LED_PIN PC13
-#define DHT_PIN PA1
-#define TRIGGER_PIN PA2
-#define ECHO_PIN PA3
+// #define BOARD_TYPE "STM32"
+// #define LED_PIN LED_BUILTIN
+// #define DHT_PIN A1
+// #define TRIGGER_PIN A2
+// #define ECHO_PIN A3
 // Potentiometer pins for STM32
-const int POT_PINS[] = {PA0};
+// const int POT_PINS[] = {A0};
 // #else // Arduino
 // #define BOARD_TYPE "Arduino"
 // #define LED_PIN 13
@@ -184,7 +184,7 @@ void loop_pots()
 // ======= Main Program =======
 void setup()
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
     Serial.print("Initializing ");
     Serial.print(BOARD_TYPE);
     Serial.println(" board...");
@@ -192,7 +192,7 @@ void setup()
     setup_led();
     setup_dht();
     setup_ultrasonic();
-    setup_imu();
+//     setup_imu();
     setup_pots();
 
     Serial.println("Setup complete!");
@@ -202,11 +202,11 @@ void loop()
 {
     // Uncomment the experiment you want to run
     loop_led();
-//     loop_dht();
-//     loop_ultrasonic();
+    loop_dht();
+    loop_ultrasonic();
 //     loop_imu();
-//     loop_pots();
-//     benchmark();
+    loop_pots();
+    benchmark();
 
     delay(100); // Small delay to prevent serial buffer overflow
 }
