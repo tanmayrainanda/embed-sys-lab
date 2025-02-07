@@ -201,8 +201,9 @@ finally:
 
 ## Future Improvements ✨
 
+- Implement wireless data transmission.
 - Add advanced obstacle avoidance algorithms.
 - Integrate additional sensors for more robust collision detection.
-- Implement wireless data transmission.
+
 
 
