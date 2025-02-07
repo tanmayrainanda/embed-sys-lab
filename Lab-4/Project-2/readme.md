@@ -2,6 +2,8 @@
 
 This project demonstrates how to use an **STM32 Nucleo-64 (STM32F103RBT6)** board with a **GY-521 IMU (MPU6050)** and **Ultrasonic Sensor (HC-SR04)** to detect and avoid obstacles. The system logs collisions based on distance measurements from the ultrasonic sensor and sudden acceleration changes detected by the IMU. The collision data is logged in a CSV file using a Python script.
 
+![Project-2 (1)](https://github.com/user-attachments/assets/9890d642-4cf4-4789-86ff-b44a6c4264d4)
+
 ## Table of Contents
 
 - [Project Overview 🌐](#project-overview)
