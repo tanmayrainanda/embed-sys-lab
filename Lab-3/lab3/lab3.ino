@@ -6,21 +6,21 @@
 #define TRIGGER_PIN 33
 #define ECHO_PIN 25
 // Potentiometer pins for ESP32
-const int POT_PINS[] = {26};
-// #elif defined(ARDUINO_ARCH_STM32)
-// #define BOARD_TYPE "STM32"
-// #define LED_PIN LED_BUILTIN
-// #define DHT_PIN A1
-// #define TRIGGER_PIN A2
-// #define ECHO_PIN A3
+const int POT_PINS[] = {36, 39, 34, 35, 32, 33, 25, 26, 27, 14};
+#elif defined(ARDUINO_ARCH_STM32)
+#define BOARD_TYPE "STM32"
+#define LED_PIN C13
+#define DHT_PIN A1
+#define TRIGGER_PIN A2
+#define ECHO_PIN A3
 // Potentiometer pins for STM32
-// const int POT_PINS[] = {A0};
-// #else // Arduino
-// #define BOARD_TYPE "Arduino"
-// #define LED_PIN 13
-// #define DHT_PIN 2
-// #define TRIGGER_PIN 3
-// #define ECHO_PIN 4
+const int POT_PINS[] = {A0};
+#else // Arduino
+#define BOARD_TYPE "Arduino"
+#define LED_PIN 13
+#define DHT_PIN 2
+#define TRIGGER_PIN 3
+#define ECHO_PIN 4
 // Potentiometer pins for Arduino
 // const int POT_PINS[] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9};
 // const int POT_PINS[] = {A0};
