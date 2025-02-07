@@ -52,8 +52,8 @@ This project integrates embedded systems and desktop applications. Data from the
 | GY-521 SCL    | PB6        |
 | HC-SR04 VCC   | 5V         |
 | HC-SR04 GND   | GND        |
-| HC-SR04 Trig  | PA0        |
-| HC-SR04 Echo  | PA1        |
+| HC-SR04 Trig  | 9          |
+| HC-SR04 Echo  | 10         |
 
 **Note:** Ensure the Nucleo board is powered through USB and recognized by your PC.
 
