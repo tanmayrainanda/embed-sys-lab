@@ -198,8 +198,8 @@ finally:
 ## Resources and References 📖
 
 - [Arduino IDE](https://www.arduino.cc/en/software)
-- [STM32 Nucleo Documentation](https://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
 - [Adafruit MPU6050 Library](https://github.com/adafruit/Adafruit_MPU6050)
+- [STM32 Nucleo Documentation](https://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
 
 ## Future Improvements ✨
 
