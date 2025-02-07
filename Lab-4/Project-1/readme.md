@@ -39,7 +39,7 @@ This project demonstrates the integration of embedded systems and desktop applic
 **GY-521 to STM32 Nucleo Wiring:**
 | GY-521 Pin | Nucleo Pin |
 |------------|------------|
-| VCC        | 3.3V       |
+| VCC        | 5V       |
 | GND        | GND        |
 | SDA        | PB7        |
 | SCL        | PB6        |
@@ -193,5 +193,5 @@ pygame.quit()
 - Integrate machine learning for motion pattern recognition.
 - Optimize serial data parsing for faster performance.
 
-Happy Coding! 🚀
+
 
