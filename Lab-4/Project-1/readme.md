@@ -2,6 +2,8 @@
 
 This project demonstrates how to use an **STM32 Nucleo-64 (STM32F103RBT6)** board with a **GY-521 IMU (MPU6050)** to read motion data and visualize it on a GUI built with **Pygame** in Python. You'll capture accelerometer and gyroscope data from the GY-521 and visualize the data by moving a rectangle on a blank space, simulating real-time motion tracking.
 
+https://github.com/user-attachments/assets/fa38db96-137d-456d-8b10-92702a83720d
+
 ## Table of Contents
 - [Project Overview 🌐](#project-overview)
 - [Hardware Requirements 🔧](#hardware-requirements)

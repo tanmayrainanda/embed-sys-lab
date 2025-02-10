@@ -2,6 +2,8 @@
 
 This project demonstrates how to use an **STM32 Nucleo-64 (STM32F103RBT6)** board with a **GY-521 IMU (MPU6050)** and **Ultrasonic Sensor (HC-SR04)** to detect and avoid obstacles. The system logs collisions based on distance measurements from the ultrasonic sensor and sudden acceleration changes detected by the IMU. The collision data is logged in a CSV file using a Python script.
 
+![Project-2 (1)](https://github.com/user-attachments/assets/9890d642-4cf4-4789-86ff-b44a6c4264d4)
+
 ## Table of Contents
 
 - [Project Overview 🌐](#project-overview)
@@ -52,8 +54,8 @@ This project integrates embedded systems and desktop applications. Data from the
 | GY-521 SCL    | PB6        |
 | HC-SR04 VCC   | 5V         |
 | HC-SR04 GND   | GND        |
-| HC-SR04 Trig  | PA0        |
-| HC-SR04 Echo  | PA1        |
+| HC-SR04 Trig  | 9          |
+| HC-SR04 Echo  | 10         |
 
 **Note:** Ensure the Nucleo board is powered through USB and recognized by your PC.
 
@@ -196,13 +198,14 @@ finally:
 ## Resources and References 📖
 
 - [Arduino IDE](https://www.arduino.cc/en/software)
-- [STM32 Nucleo Documentation](https://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
 - [Adafruit MPU6050 Library](https://github.com/adafruit/Adafruit_MPU6050)
+- [STM32 Nucleo Documentation](https://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
 
 ## Future Improvements ✨
 
+- Implement wireless data transmission.
 - Add advanced obstacle avoidance algorithms.
 - Integrate additional sensors for more robust collision detection.
-- Implement wireless data transmission.
+
 
 
