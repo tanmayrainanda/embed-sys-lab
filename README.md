@@ -45,11 +45,13 @@ Each lab follows a structured approach, including:
   - Servo Motors, DC Motors, Motor Driver (L298N)
  
 ### 🔹 **Lab 5: Peer-to-Peer Communication**
-- ⚡ **Race Against Time:** Transmit data between controllers faster than your peers
-- 🔄 Understanding **UART, SPI, I2C, and CAN**
-- 📶 **Wireless Communication:** ESP8266, NRF24L01
+- ⚡ **Race Against Time:** Transmit data between controllers faster using RF-based modules.
+- 🔄 **Understanding Wireless Serial Communication with RF 433MHz & HC-12**
+- 📶 **Long-Range & Short-Range Communication:** Evaluating RF 433MHz and HC-12 performance.
 - 🏗️ **Required Components:**
-  - STM32-Nucleo/ ESP8266, NRF24L01, RS485 Modules
+  - RF 433MHz Transmitter & Receiver
+  - HC-12 Wireless Serial Module
+  - STM32-Nucleo / Arduino
  
 ### 🔹 **Lab 6: Advanced Communication Protocols**
 - 🏆 **Team Challenge:** Develop a **multi-node wireless sensor network**
